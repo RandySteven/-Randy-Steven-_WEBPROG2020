@@ -24,6 +24,8 @@ Route::middleware('role:admin')->group(function(){
     Route::patch('/update-product/{product:slug}', 'ProductController@update')->name('product.update');
     Route::delete('/delete-product/{product:slug}', 'ProductController@delete')->name('product.delete');
 
+    Route::post('/store-album', 'AlbumController@store')->name('album.store');
+    Route::delete('/delete-album', 'AlbumController@delete')->name('album.delete');
 
 });
 

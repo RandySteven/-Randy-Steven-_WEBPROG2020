@@ -3,7 +3,26 @@
 @section('title', $product->name)
 
 @section('style')
+<style>
+div.scrollmenu {
+    background-color: #000;
+    overflow: auto;
+    white-space: nowrap;
+  }
 
+  div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+  }
+
+  div.scrollmenu a:hover {
+    background-color: #777;
+  }
+
+</style>
 @endsection
 
 @section('content')
@@ -62,14 +81,16 @@
                         </form>
                     @endcan
                 </td>
-                <td>
-                    @can('update', $product)
-                        <a href="" class="btn btn-primary">Add album</a>
-                    @endcan
-                </td>
             </tr>
         </table>
-
+        @can('update', $product)
+        <form action="{{ route('album.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="photo" id="">
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <button type="submit" class="btn btn-primary">Add photo</button>
+        </form>
+        @endcan
 
     </div>
 
@@ -95,6 +116,14 @@
 
     <div class="container">
         <p>{!! nl2br($product->description) !!}</p>
+    </div>
+
+    <div class="container scrollmenu">
+        @foreach ($product->albums as $album)
+        <a href="{{ asset('/storage/'.$album->photo) }}" target="_blank">
+            <img src="{{ asset('/storage/'.$album->photo) }}" class="rounded" style="width: 10rem; height: 10rem" alt="">
+        </a>
+        @endforeach
     </div>
 
     <div class="container">

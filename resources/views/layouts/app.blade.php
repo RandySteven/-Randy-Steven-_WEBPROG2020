@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('style')
 </head>
 <body>
     <div id="app">
@@ -53,6 +54,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        @if (Auth::user())
                         <li class="nav-item">
                             <a href="{{ route('cart.index') }}">
                                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-check mt-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -64,6 +66,7 @@
                                 </div>
                             </a>
                         </li>
+                        @endif
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -101,5 +104,7 @@
             @yield('content')
         </main>
     </div>
+
+    @yield('script')
 </body>
 </html>
