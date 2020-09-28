@@ -14,6 +14,9 @@
     @endphp
     <div class="container text-center">
         <h1>Anda telah melakukan pesanan</h1>
+        Pengiriman ke alamat :
+        <h4>{!! nl2br($order->address) !!}</h4>
+        Kode Post : <h3>{{ $order->post_number }}</h3>
         <table class="table">
             <thead>
                 <tr>

@@ -6,6 +6,7 @@ use App\Cart;
 use App\Jobs\ProcessMail;
 use App\Mail\OrderTransaction;
 use App\Order;
+use App\OrderDetail;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,16 +14,22 @@ use Illuminate\Support\Facades\Mail;
 
 class TransactionController extends Controller
 {
-    public function store(){
+    public function store(Request $request){
         $carts = Cart::where('user_id', auth()->user()->id);
         $cartUser = $carts->get();
+        $request->validate([
+            'address' => 'required|min:10|max:100',
+            'post_number' => 'required|numeric|'
+        ]);
         $order = Order::create([
             'user_id' => Auth::user()->id,
+            'address' => $request->address,
+            'post_number' => $request->post_number
         ]);
         foreach($cartUser as $cart){
             $order->details()->create([
                 'product_id' => $cart->product->id,
-                'qty' => $cart->qty
+                'qty' => $cart->qty,
             ]);
             $product = Product::where('id', $cart->product->id);
 
@@ -30,9 +37,9 @@ class TransactionController extends Controller
                 $product->decrement('stock', $cart->qty);
             }
         }
-
+        $orderUser = Order::where('user_id', auth()->user()->id)->get();
         $carts->delete();
-        Mail::to(Auth::user()->email)->send(new OrderTransaction($cartUser));
+        Mail::to(Auth::user()->email)->send(new OrderTransaction($cartUser, $order));
         // ProcessMail::dispatch($mails)->onQueue('processing')->delay(now()->addSeconds(3));
         return redirect('/');
     }

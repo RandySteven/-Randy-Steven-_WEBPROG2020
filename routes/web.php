@@ -26,7 +26,6 @@ Route::middleware('role:admin')->group(function(){
 
     Route::post('/store-album', 'AlbumController@store')->name('album.store');
     Route::delete('/delete-album', 'AlbumController@delete')->name('album.delete');
-
 });
 
 Route::middleware('auth')->group(function($c){
@@ -34,6 +33,7 @@ Route::middleware('auth')->group(function($c){
     Route::get('/cart', 'CartController@index')->name('cart.index');
     Route::delete('/cart/delete/{cart}', 'CartController@delete')->name('cart.delete');
 
+    Route::patch('/add-user-address/{user}', 'UserController@update')->name('add.address');
     Route::post('/comment', 'CommentController@store')->name('comment');
     Route::post('/reply', 'CommentController@storeReply')->name('reply');
     Route::post('/transaction', 'TransactionController@store')->name('transaction');
