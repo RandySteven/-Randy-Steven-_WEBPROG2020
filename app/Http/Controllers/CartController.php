@@ -21,7 +21,6 @@ class CartController extends Controller
 
         $attr = $request->all();
         $attr['product_id'] = $request->get('product_id');
-
         auth()->user()->carts()->create($attr);
         return redirect('/cart')->with('success', 'Item berhasil masuk ke keranjang');
     }

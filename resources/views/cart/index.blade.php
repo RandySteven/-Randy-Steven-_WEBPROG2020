@@ -66,11 +66,21 @@
                   @csrf
                     <div class="form-group">
                         <label for="">Address</label>
-                        <textarea name="address" id="" rows="5" class="form-control"></textarea>
+                        <textarea name="address" id="" rows="5" class="form-control @error('address') is-invalid @enderror" placeholder="Address must in length 10..100"></textarea>
+                        <div class="text text-danger">
+                            @error('address')
+                                {{ $message }}
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="">Post Number</label>
-                        <input type="text" name="post_number" id="">
+                        <input type="text" name="post_number" class="@error('post_number') is-invalid @enderror" id="" placeholder="Post number must numeric and size is 5">
+                        <div class="text text-danger">
+                            @error('post_number')
+                                {{ $message }}
+                            @enderror
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-danger">
                         Buy

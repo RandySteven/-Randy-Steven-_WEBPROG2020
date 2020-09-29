@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id');
             $table->text('address');
             $table->string('post_number');
+            $table->string('invoice')->unique();
             $table->timestamps();
         });
     }

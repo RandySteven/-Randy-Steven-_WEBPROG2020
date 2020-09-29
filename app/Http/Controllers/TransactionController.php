@@ -21,11 +21,14 @@ class TransactionController extends Controller
             'address' => 'required|min:10|max:100',
             'post_number' => 'required|numeric|'
         ]);
+
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'address' => $request->address,
-            'post_number' => $request->post_number
+            'post_number' => $request->post_number,
+            'invoice' => strtoupper('PG'.date('Y').random_int(0,9).random_int(0,9).random_int(0,9).$request->address[strlen($request->address)-1])
         ]);
+
         foreach($cartUser as $cart){
             $order->details()->create([
                 'product_id' => $cart->product->id,
@@ -34,10 +37,13 @@ class TransactionController extends Controller
             $product = Product::where('id', $cart->product->id);
 
             if($product->first()->id == $cart->product->id){
-                $product->decrement('stock', $cart->qty);
+                if($product->first()->stock < $cart->qty){
+                    return back()->with('error', 'Quantiti harus kurang dari stok barang');
+                }else{
+                    $product->decrement('stock', $cart->qty);
+                }
             }
         }
-        $orderUser = Order::where('user_id', auth()->user()->id)->get();
         $carts->delete();
         Mail::to(Auth::user()->email)->send(new OrderTransaction($cartUser, $order));
         // ProcessMail::dispatch($mails)->onQueue('processing')->delay(now()->addSeconds(3));
