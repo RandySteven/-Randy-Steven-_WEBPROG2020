@@ -59,3 +59,15 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+package yang digunakan adalah
+composer require laravel/ui "^2.0"
+composer require spatie/laravel
+
+Data admin, role, category, dan data dummy product sudah tersedia di DatabaseSeeder.php
+sehingga hanya perlu melakukan
+php artisan db:seed
+
+Data untuk login sebagai admin
+email : admin@gmail.com
+pass  : password
