@@ -19,7 +19,7 @@ class TransactionController extends Controller
         $cartUser = $carts->get();
         $request->validate([
             'address' => 'required|min:10|max:100',
-            'post_number' => 'required|numeric|'
+            'post_number' => 'required|numeric|min:5|'
         ]);
 
         $order = Order::create([
@@ -47,6 +47,6 @@ class TransactionController extends Controller
         $carts->delete();
         Mail::to(Auth::user()->email)->send(new OrderTransaction($cartUser, $order));
         // ProcessMail::dispatch($mails)->onQueue('processing')->delay(now()->addSeconds(3));
-        return redirect('/');
+        return redirect('/products')->with('success', 'Transaksi berhasil dilakukan');
     }
 }

@@ -18,8 +18,10 @@ class CartController extends Controller
         if($duplicate){
             return redirect('/cart')->with('error', 'Item sudah ada');
         }
-
         $attr = $request->all();
+        if($attr['qty']<1){
+            return back()->with('error', 'Quantity harus setidaknya 1');
+        }
         $attr['product_id'] = $request->get('product_id');
         auth()->user()->carts()->create($attr);
         return redirect('/cart')->with('success', 'Item berhasil masuk ke keranjang');
