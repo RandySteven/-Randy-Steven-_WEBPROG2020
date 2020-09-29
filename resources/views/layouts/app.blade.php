@@ -25,7 +25,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    Pak Gober's Shop
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -79,6 +79,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img src="{{ Auth::user()->gravatar() }}" width="25" class="rounded rounded-circle" alt="">
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -109,6 +110,26 @@
         </main>
     </div>
 
+    <footer class="text-dark">
+        <div class="container text-center text-black" style="background-color: lightgrey">
+            &copy; Randy Steven 2020
+            <p>
+                Menyediakan tentang barang apa saja yang ingin kalian cari.
+
+            </p>
+            <p>
+                <a href="https://www.facebook.com/"><img src="{{ asset('image/facebook.png') }}" class="navbar-toggler-icon rounded-circle"  alt=""></a>
+                <a href="https://github.com/"><img src="{{ asset('image/github.png') }}" class="navbar-toggler-icon rounded-circle"  alt=""></a>
+                <a href="https://www.instagram.com/"><img src="{{ asset('image/logo.png') }}" class="navbar-toggler-icon rounded-circle"  alt=""></a>
+                <a href="https://www.youtube.com/"><img src="{{ asset('image/youtube.png') }}" class="navbar-toggler-icon rounded-circle"  alt=""></a>
+                <a href="#"><img src="{{ asset('image/twitter.png') }}" class="navbar-toggler-icon rounded-circle"  alt=""></a>
+            </p>
+            <p>
+                Membeli barang sesuai dengan kebutuhan dan keinginan kalian
+            </p>
+            <!-- <button class="btn btn-outline-secondary" onclick="darkmode()">Darkmode</button> -->
+        </div>
+      </footer>
     @yield('script')
 </body>
 </html>

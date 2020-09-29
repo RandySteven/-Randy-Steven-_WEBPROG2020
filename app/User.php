@@ -20,6 +20,9 @@ class User extends Authenticatable
         'name', 'email', 'password', 'phone_number', 'address', 'post_number'
     ];
 
+    public function gravatar($size = 150){
+        return "https://www.gravatar.com/avatar/" . $this->email . "?d=&s=" . $size;
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

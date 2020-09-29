@@ -37,7 +37,7 @@ class ProductController extends Controller
 
         auth()->user()->products()->create($attr);
 
-        return redirect('/');
+        return redirect('/products')->with('success', 'Produk berhasil ditambahkan');
     }
 
     public function show(Product $product){
@@ -62,13 +62,13 @@ class ProductController extends Controller
         $attr['thumbnail'] = $thumbnail;
         $attr['category_id'] = $request->get('category');
         $product->update($attr);
-        return redirect('/');
+        return redirect('/show-product/'.$product->slug)->with('success', 'Produk berhasil diedit');
     }
 
     public function delete(Product $product){
         $this->authorize('delete', $product);
         $product->delete($product);
         \Storage::delete($product->thumbnail);
-        return redirect('/');
+        return redirect('/products')->with('success', 'Produk berhasil dihapus');
     }
 }

@@ -28,6 +28,11 @@ div.scrollmenu {
 @section('content')
 <div class="container">
     <div class="container">
+        @if (Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+        @endif
         @if (Session::has('error'))
         <div class="alert alert-danger">
             {{ Session::get('error') }}
@@ -55,7 +60,7 @@ div.scrollmenu {
                         </tr>
                         <tr>
                             <td>price : </td>
-                            <td><strong>Rp.{{ number_format($product->price) }}</strong></td>
+                            <td><strong>Rp {{ number_format($product->price) }}.00</strong></td>
                         </tr>
                         <tr>
                             <td>category : </td>
